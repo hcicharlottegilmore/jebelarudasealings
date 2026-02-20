@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Archaeological Seal Map</title>
+  <title>Jebel Aruda Sealing Motifs Map</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
@@ -45,30 +45,27 @@
 
 <script>
 
-// ============================
-// 1️⃣ CREATE MAP
-// ============================
+// map init
 
 var map = L.map('map', {
   crs: L.CRS.Simple,
   minZoom: -2
 });
 
-// Your image dimensions (HEIGHT first, WIDTH second)
+// img dimensions
 var bounds = [[0,0], [1912,2940]];
 
 var image = L.imageOverlay('site_map.jpg', bounds).addTo(map);
 map.fitBounds(bounds);
 
 
-// ============================
-// 2️⃣ COLOR FUNCTION
-// ============================
+// colors
 
 function getColor(type) {
   if (type === "Blue") return "#1f78b4";
   if (type === "Red") return "#e31a1c";
   if (type === "Green") return "#33a02c";
+  if (type == "Purple") return "33a28g";
   return "#6a3d9a"; // default color
 }
 
@@ -87,22 +84,62 @@ var seals = [
   { id: "JA536", room: "S69", type: "Blue", coords: [900, 1400], image: "images/ja536.jpg" },
   { id: "JA513", room: "S69", type: "Blue", coords: [900, 1400], image: "images/ja513.jpg" },
   { id: "JA269", room: "S36", type: "Blue", coords: [900, 1400], image: "images/ja269.jpg" },
+  { id: "JA170", room: "S22", type: "Blue", coords: [900, 1400], image: "images/ja170.jpg" },
+  { id: "JA378", room: "S22", type: "Blue", coords: [900, 1400], image: "images/ja378.jpg" }, // look at this one, not so straightforward
+  { id: "JA382", room: "S55", type: "Blue", coords: [900, 1400], image: "images/ja382.jpg" },
+  { id: "JA706", room: "S81", type: "Blue", coords: [900, 1400], image: "images/ja706.jpg" },
+  { id: "JA1352", room: "S89", type: "Blue", coords: [900, 1400], image: "images/ja1352.jpg" },
+  { id: "JA715", room: "S72", type: "Blue", coords: [900, 1400], image: "images/ja715.jpg" }, // human caprid etc mixed scene
+
+
+
 
   // caprids
   { id: "JA245", room: "S36", type: "Red", coords: [900, 1400], image: "images/ja245.jpg" },
   { id: "JA279", room: "S36", type: "Red", coords: [900, 1400], image: "images/ja279.jpg" },
   { id: "JA263", room: "S36", type: "Red", coords: [900, 1400], image: "images/ja263.jpg" },
+  { id: "JA310", room: "S36", type: "Red", coords: [900, 1400], image: "images/ja310.jpg" },
+  { id: "JA153", room: "S9", type: "Red", coords: [900, 1400], image: "images/ja153.jpg" },
+  { id: "JA125", room: "S8", type: "Red", coords: [900, 1400], image: "images/ja125.jpg" },
+  { id: "JA129", room: "S8", type: "Red", coords: [900, 1400], image: "images/ja129.jpg" },
+  { id: "JA180", room: "S22", type: "Red", coords: [900, 1400], image: "images/ja180.jpg" },
+  { id: "JA568", room: "S69", type: "Red", coords: [900, 1400], image: "images/ja568.jpg" },
+  { id: "JA577", room: "S69", type: "Red", coords: [900, 1400], image: "images/ja577.jpg" },
+  { id: "JA512", room: "S69", type: "Red", coords: [900, 1400], image: "images/ja512.jpg" },
+
+
+
+
 
 
     // other? 
-    { id: "JA253", room: "S36", type: "Green", coords: [900, 1400], image: "images/ja253.jpg" }
+    { id: "JA253", room: "S36", type: "Green", coords: [900, 1400], image: "images/ja253.jpg" },
+    { id: "JA286", room: "S36", type: "Green", coords: [900, 1400], image: "images/ja286.jpg" },
+    { id: "JA289", room: "S36", type: "Green", coords: [900, 1400], image: "images/ja289.jpg" },
+    { id: "JA176", room: "S36", type: "Green", coords: [900, 1400], image: "images/ja176.jpg" }, //this is caprid and lion so idk where i wanna put it
+    { id: "JA367", room: "S58", type: "Green", coords: [900, 1400], image: "images/ja367.jpg" }, // quadruped and pots
+    { id: "JA619", room: "S69", type: "Purple", coords: [900, 1400], image: "images/ja619.jpg" }, // birds? giraffe?
+    { id: "JA679", room: "S69", type: "Green", coords: [900, 1400], image: "images/ja679.jpg" }, // lion and quadruped
+    { id: "JA620", room: "S69", type: "Green", coords: [900, 1400], image: "images/ja620.jpg" }, // lion frieze
+
+
+
+
+    // pots and tassels
+    { id: "JA126", room: "S36", type: "Purple", coords: [900, 1400], image: "images/ja126.jpg" },
+
+    // geometric
+    { id: "JA360", room: "S55", type: "Green", coords: [900, 1400], image: "images/ja360.jpg" }, // maybe architectual, check this
+    { id: "JA750", room: "S89", type: "Purple", coords: [900, 1400], image: "images/ja750.jpg" }, // stamp seal
+    { id: "JA623", room: "S69", type: "Purple", coords: [900, 1400], image: "images/ja623.jpg" },
+
+    // architectural
+    { id: "JA562", room: "S69", type: "Purple", coords: [900, 1400], image: "images/ja562.jpg" }
 
 ];
 
 
-
 // grouping by room etc
-
 
 var grouped = {};
 
@@ -118,13 +155,14 @@ seals.forEach(function(seal) {
       seals: []
     };
   }
-// maybe change above – require just r #? 
+// maybe change above – require just r #? redundant perhaps
   grouped[key].seals.push(seal);
 });
 
 
+// look at j153 again
 
-// point markers  
+// point markers   CHANGE COLORS ABVOE
 
 Object.values(grouped).forEach(function(group) {
 
@@ -137,7 +175,7 @@ Object.values(grouped).forEach(function(group) {
         <div class="seal-marker" style="background:${getColor(group.type)}">
           ${count}
         </div>
-      `,
+      `, 
       iconSize: [32, 32],
       iconAnchor: [16, 16]
     })
@@ -179,10 +217,7 @@ popupContent += `
 });
 
 
-// ============================
-// 6️⃣ OPTIONAL: CLICK MAP TO GET COORDS
-// (Remove after you're done)
-// ============================
+// map clicking coords
 
 map.on('click', function(e) {
   console.log(e.latlng);
