@@ -84,17 +84,18 @@
 
   <div id="info-content">
     <strong>Key:</strong><br>
-    <span style="color:#1f78b4;">● Blue</span> – Human Depictions<br>
-    <span style="color:#e31a1c;">● Red</span> – Caprids<br>
-    <span style="color:#33a02c;">● Green</span> – Mixed / Animal<br>
-    <span style="color:#6a3d9a;">● Purple</span> – Architectural / Geometric<br><br>
+    <span style="color:#1f78b4;">● Human</span><br>
+    <span style="color:#e31a1c;">● Animal</span><br>
+    <span style="color:#6a3d9a;">● Architectural</span><br>
+    <span style="color:#ff7f00;">● Geometric</span><br>
+    <span style="color:#33a02c;">● Mixed and Other</span><br>
+    <span style="color:#a65628;">● Pots and Tassels</span><br><br>
 
     <strong>Source:</strong><br>
     Site map, motif images, and find spots sourced from: <br>
     van Driel, Govert, and Carol van Driel-Murray. Jebel Aruda: An Uruk Period Temple and Settlement in Syria. Volume I: Excavation and Material Culture. Papers on Archaeology of the Leiden Museum of Antiquities 28a. Leiden: Sidestone Press, 2023. https://doi.org/10.59641/mch0f9df.<br>
     <br>
-    Site coded by Charlotte Gilmore, UChicago MA (CMES) 2027.
-  </div>
+    Site coded by Charlotte Gilmore, M.A., University of Chicago, Center for Middle Eastern Studies (CMES), 2027.  </div>
 </div>
 
 
@@ -123,13 +124,19 @@ map.fitBounds(bounds);
 
 // colors
 
-function getColor(type) {
-  if (type === "Blue") return "#1f78b4";
-  if (type === "Red") return "#e31a1c";
-  if (type === "Green") return "#33a02c";
-  if (type === "Purple") return "#6a3d9a";
-  return "#6a3d9a"; // default color
-}
+// new color mapping for new categories
+  const typeColors = {
+    "Human": "#1f78b4",
+    "Animal": "#e31a1c",
+    "Architectural": "#6a3d9a",
+    "Geometric": "#ff7f00",
+    "Mixed": "#33a02c",
+    "Pots and Tassels": "#a65628"
+  };
+
+  function getColor(type) {
+    return typeColors[type] || "#000000"; // black as fallback if type is wrong
+  }
 
 
 // seal data w/ room info and color grouping
@@ -137,79 +144,80 @@ function getColor(type) {
 var seals = [
 
   // human depictions
-  { id: "JA395", room: "S64", type: "Blue", coords: [892, 308], image: "images/ja395.jpg" },
-  { id: "JA396", room: "S64", type: "Blue", coords: [892, 308], image: "images/ja396.jpg" },
-  { id: "JA249", room: "S36", type: "Blue", coords: [708, 2715], image: "images/ja249.jpg" },
-  { id: "JA309", room: "S36", type: "Blue", coords: [708, 2715], image: "images/ja309.jpg" },
-  { id: "JA312", room: "S36", type: "Blue", coords: [708, 2715], image: "images/ja312.jpg" },
-  { id: "JA246", room: "S36", type: "Blue", coords: [708, 2715], image: "images/ja246.jpg" },
+  { id: "JA395", room: "S64", type: "Human", coords: [892, 308], image: "images/ja395.jpg" },
+  { id: "JA396", room: "S64", type: "Human", coords: [892, 308], image: "images/ja396.jpg" },
+  { id: "JA249", room: "S36", type: "Human", coords: [708, 2715], image: "images/ja249.jpg" },
+  { id: "JA309", room: "S36", type: "Human", coords: [708, 2715], image: "images/ja309.jpg" },
+  { id: "JA312", room: "S36", type: "Human", coords: [708, 2715], image: "images/ja312.jpg" },
+  { id: "JA246", room: "S36", type: "Human", coords: [708, 2715], image: "images/ja246.jpg" },
  // { id: "JA536", room: "S69", type: "Blue", coords: [900, 1400], image: "images/ja536.jpg" }, // not logged! 
 //  { id: "JA513", room: "S69", type: "Blue", coords: [900, 1400], image: "images/ja513.jpg" },
-  { id: "JA269", room: "S36", type: "Blue", coords: [708, 2715], image: "images/ja269.jpg" },
-  { id: "JA170", room: "S22", type: "Blue", coords: [1046, 2357], image: "images/ja170.jpg" },
-  { id: "JA378", room: "S22", type: "Blue", coords: [1046, 2357], image: "images/ja378.jpg" }, // look at this one, not so straightforward
-  { id: "JA382", room: "S55", type: "Blue", coords: [1290, 500], image: "images/ja382.jpg" },
+  { id: "JA269", room: "S36", type: "Human", coords: [708, 2715], image: "images/ja269.jpg" },
+  { id: "JA170", room: "S22", type: "Human", coords: [1046, 2357], image: "images/ja170.jpg" },
+  { id: "JA378", room: "S22", type: "Human", coords: [1046, 2357], image: "images/ja378.jpg" }, // look at this one, not so straightforward
+  { id: "JA382", room: "S55", type: "Human", coords: [1290, 500], image: "images/ja382.jpg" },
  // { id: "JA1352 - actual seal", room: "S89", type: "Blue", coords: [900, 1400], image: "images/ja1352.jpg" },
  // { id: "JA715", room: "S72", type: "Blue", coords: [900, 1400], image: "images/ja715.jpg" }, // human caprid etc mixed scene
 
 
 
 
-  // caprids
-  { id: "JA245", room: "S36", type: "Red", coords: [645, 2718], image: "images/ja245.jpg" },
-  { id: "JA279", room: "S36", type: "Red", coords: [645, 2718], image: "images/ja279.jpg" },
-  { id: "JA263", room: "S36", type: "Red", coords: [645, 2718], image: "images/ja263.jpg" },
-  { id: "JA310", room: "S36", type: "Red", coords: [645, 2718], image: "images/ja310.jpg" },
-  { id: "JA282", room: "S36", type: "Red", coords: [645, 2718], image: "images/ja282.jpg" },
-  { id: "JA153", room: "S9", type: "Red", coords: [1140, 2046], image: "images/ja153.jpg" },
-  { id: "JA125", room: "S8", type: "Red", coords: [1278, 2148], image: "images/ja125.jpg" },
-  { id: "JA129", room: "S8", type: "Red", coords: [1278, 2148], image: "images/ja129.jpg" },
-  { id: "JA180", room: "S22", type: "Red", coords: [1046, 2428], image: "images/ja180.jpg" },
-  { id: "JA568", room: "S69", type: "Red", coords: [684, 236], image: "images/ja568.jpg" },
-  { id: "JA577", room: "S69", type: "Red", coords: [684, 236], image: "images/ja577.jpg" },
-  { id: "JA526", room: "S69", type: "Red", coords: [684, 236], image: "images/ja526.jpg" },
-  { id: "JA512", room: "S69", type: "Red", coords: [684, 236], image: "images/ja512.jpg" },
-  { id: "JA24", room: "S3", type: "Red", coords: [712, 1996], image: "images/ja24.jpg" },
-  { id: "JA27", room: "S3", type: "Red", coords: [712, 1996], image: "images/ja27.jpg" },
+  // caprids and animal
+  { id: "JA245", room: "S36", type: "Animal", coords: [645, 2718], image: "images/ja245.jpg" },
+  { id: "JA279", room: "S36", type: "Animal", coords: [645, 2718], image: "images/ja279.jpg" },
+  { id: "JA263", room: "S36", type: "Animal", coords: [645, 2718], image: "images/ja263.jpg" },
+  { id: "JA310", room: "S36", type: "Animal", coords: [645, 2718], image: "images/ja310.jpg" },
+  { id: "JA282", room: "S36", type: "Animal", coords: [645, 2718], image: "images/ja282.jpg" },
+  { id: "JA176", room: "S36", type: "Animal", coords: [645, 2718], image: "images/ja176.jpg" }, //this is caprid and lion so idk where i wanna put it
+  { id: "JA153", room: "S9", type: "Animal", coords: [1140, 2046], image: "images/ja153.jpg" },
+  { id: "JA125", room: "S8", type: "Animal", coords: [1278, 2148], image: "images/ja125.jpg" },
+  { id: "JA129", room: "S8", type: "Animal", coords: [1278, 2148], image: "images/ja129.jpg" },
+  { id: "JA180", room: "S22", type: "Animal", coords: [1046, 2428], image: "images/ja180.jpg" },
+  { id: "JA568", room: "S69", type: "Animal", coords: [684, 236], image: "images/ja568.jpg" },
+  { id: "JA577", room: "S69", type: "Animal", coords: [684, 236], image: "images/ja577.jpg" },
+  { id: "JA526", room: "S69", type: "Animal", coords: [684, 236], image: "images/ja526.jpg" },
+  { id: "JA512", room: "S69", type: "Animal", coords: [684, 236], image: "images/ja512.jpg" },
+  { id: "JA619", room: "S69", type: "Animal", coords: [684, 236], image: "images/ja619.jpg" }, // birds? giraffe?
+  { id: "JA620", room: "S69", type: "Animal", coords: [684, 236], image: "images/ja620.jpg" }, // lion frieze
+  { id: "JA24", room: "S3", type: "Animal", coords: [712, 1996], image: "images/ja24.jpg" },
+  { id: "JA27", room: "S3", type: "Animal", coords: [712, 1996], image: "images/ja27.jpg" },
+  { id: "JA26 - Seal", room: "S1", type: "Animal", coords: [942, 2009], image: "images/ja26.jpg" }, // fishies
 
 
 
 
 
-    // other? 
-    { id: "JA286", room: "S36", type: "Green", coords: [647, 2682], image: "images/ja286.jpg" },
-    { id: "JA289", room: "S36", type: "Green", coords: [647, 2682], image: "images/ja289.jpg" },
-    { id: "JA176", room: "S36", type: "Green", coords: [647, 2682], image: "images/ja176.jpg" }, //this is caprid and lion so idk where i wanna put it
-    { id: "JA367", room: "S58", type: "Green", coords: [1024, 312], image: "images/ja367.jpg" }, // quadruped and pots
-    { id: "JA619", room: "S69", type: "Purple", coords: [524, 248], image: "images/ja619.jpg" }, // birds? giraffe?
-    { id: "JA679", room: "S69", type: "Green", coords: [524, 248], image: "images/ja679.jpg" }, // lion and quadruped
-    { id: "JA620", room: "S69", type: "Green", coords: [524, 248], image: "images/ja620.jpg" }, // lion frieze
+
+    // mixed/ other
+    { id: "JA286", room: "S36", type: "Mixed", coords: [647, 2682], image: "images/ja286.jpg" },
+    { id: "JA289", room: "S36", type: "Mixed", coords: [647, 2682], image: "images/ja289.jpg" },
+    { id: "JA367", room: "S58", type: "Mixed", coords: [1024, 312], image: "images/ja367.jpg" }, // quadruped and pots
+    { id: "JA679", room: "S69", type: "Mixed", coords: [524, 248], image: "images/ja679.jpg" }, // lion and quadruped
    // { id: "JA723", room: "Temple", type: "Green", coords: [900, 1400], image: "images/ja723.jpg" }, // lion 
    // { id: "JA498", room: "Temple", type: "Green", coords: [900, 1400], image: "images/ja493.jpg" }, // lion 
    // { id: "JA716", room: "S72", type: "Green", coords: [900, 1400], image: "images/ja716.jpg" }, // lion 
+   
+   
 
    
    // actual seals
-    { id: "JA26 - Actual Seal", room: "SIR1", type: "Green", coords: [942, 2009], image: "images/ja26.jpg" }, // fishies
    // { id: "JA706 - Actual Seal", room: "S81", type: "Blue", coords: [900, 1400], image: "images/ja706.jpg" },
-    { id: "JA360 - actual seal", room: "S55", type: "Green", coords: [1288, 326], image: "images/ja360.jpg" }, // maybe architectual, check this
 
 
-
-
-
-    // pots and tassels
-    { id: "JA126", room: "S36", type: "Purple", coords: [707, 2681], image: "images/ja126.jpg" },
-    { id: "JA253", room: "S36", type: "Green", coords: [707, 2681], image: "images/ja253.jpg" },
+   
 
 
     // geometric
    // { id: "JA750- actual seal", room: "S89", type: "Purple", coords: [900, 1400], image: "images/ja750.jpg" }, // stamp seal
-    { id: "JA623", room: "S69", type: "Purple", coords: [436, 152], image: "images/ja623.jpg" },
+   { id: "JA360 - actual seal", room: "S55", type: "Geometric", coords: [1288, 326], image: "images/ja360.jpg" }, // maybe architectual, check this
+    { id: "JA623", room: "S69", type: "Geometric", coords: [436, 152], image: "images/ja623.jpg" },
 
     // architectural
-    { id: "JA562", room: "S69", type: "Purple", coords: [592, 176], image: "images/ja562.jpg" },
-    { id: "JA107", room: "S3", type: "Purple", coords: [658, 2050], image: "images/ja107.jpg" }
+    { id: "JA562", room: "S69", type: "Architectural", coords: [592, 176], image: "images/ja562.jpg" },
+    { id: "JA107", room: "S3", type: "Architectural", coords: [658, 2050], image: "images/ja107.jpg" },
+    // pots and tassels
+    { id: "JA126", room: "S36", type: "Pots and Tassels", coords: [707, 2681], image: "images/ja126.jpg" },
+    { id: "JA253", room: "S36", type: "Pots and Tassels", coords: [707, 2681], image: "images/ja253.jpg" }
 
 ];
 
