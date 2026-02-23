@@ -10,6 +10,10 @@
     body { margin:0; }
     #map { height: 100vh; }
 
+    .leaflet-container {
+      background: #99c2dc
+      ;
+
     .seal-marker {
       width:32px;
       height:32px;
@@ -121,10 +125,7 @@ var bounds = [[0,0], [1912,2940]];
 var image = L.imageOverlay('site_map.jpg', bounds).addTo(map);
 map.fitBounds(bounds);
 
-
-// colors
-
-// new color mapping for new categories
+// color mapping new categories v3
   const typeColors = {
     "Human": "#1f78b4",
     "Animal": "#e31a1c",
@@ -138,11 +139,9 @@ map.fitBounds(bounds);
     return typeColors[type] || "#000000"; 
   }
 
-
 // seal data w/ room info and color grouping
 
 var seals = [
-
   // human depictions
   { id: "JA395", room: "S64", type: "Human", coords: [892, 308], image: "images/ja395.jpg" },
   { id: "JA396", room: "S64", type: "Human", coords: [892, 308], image: "images/ja396.jpg" },
